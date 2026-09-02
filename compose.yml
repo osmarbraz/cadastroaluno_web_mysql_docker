@@ -22,8 +22,6 @@ services:
     # "unless-stopped" reinicia automaticamente o container,
     # exceto quando ele tiver sido parado manualmente.
     restart: unless-stopped
-
-    # command: --lower_case_table_names=1
     
     # Variáveis de ambiente utilizadas durante a configuração
     # inicial do MySQL.
