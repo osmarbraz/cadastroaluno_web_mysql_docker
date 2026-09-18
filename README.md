@@ -9,8 +9,9 @@ Sistema de Cadastro de Aluno WEB com Banco de Dados MySQL em Docker.
  - Utiliza o **Apache Maven** para automatizar o processo de construção da aplicação.
  - A aplicação é empacotada no formato **WAR (Web Application Archive)**.
  - Utiliza o **Docker** para criar e executar o container do banco de dados MySQL.
- - Utiliza o **Docker Compose** para definir e gerenciar o serviço do banco de dados. 
- - Utiliza o **MySQL 8.4** como banco de dados da aplicação. 
+ - Utiliza o **Docker Compose** para definir e gerenciar o serviço do banco de dados e o phpadmin. 
+ - Utiliza o **MySQL 8.4** como banco de dados da aplicação em docker. 
+ - A ferramenta **PHPMyAdmin 5.2.3** vem configurada mas comentada no arquivo compose.yml.
  - O projeto é um **CRUD** para os dados de aluno (id, nome, idade, curso e fase).
  - As classes do projeto está organizado nos **pacotes** visão, controle, modelo e dao.
  - Toda iteração com banco de dados é tratada diretamente pelo **DAO**(Data Access Object).

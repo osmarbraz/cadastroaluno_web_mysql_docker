@@ -52,6 +52,82 @@ services:
       # container é removido ou recriado.
       - mysql_data:/var/lib/mysql
     
+  # ============================================================
+  # SERVIÇO DO PHPMYADMIN
+  # ============================================================
+
+  # Define o serviço que será responsável por executar
+  # o phpMyAdmin, uma interface Web utilizada para administrar
+  # bancos de dados MySQL.
+  #phpmyadmin:
+
+    # Define uma dependência entre os serviços.
+    #
+    # O phpMyAdmin depende do serviço "mysql" e, portanto,
+    # o container do MySQL será iniciado antes do phpMyAdmin.
+    #
+    # IMPORTANTE:
+    # O "depends_on" controla a ordem de inicialização,
+    # mas não garante que o MySQL já esteja pronto para
+    # receber conexões.
+    #depends_on:
+    #  - mysql
+
+    # Define a imagem Docker utilizada para criar o container.
+    #
+    # A imagem phpmyadmin/phpmyadmin contém o phpMyAdmin
+    # e os componentes necessários para executá-lo.
+    #image: phpmyadmin/phpmyadmin:5.2.3
+
+    # Define o comportamento do container quando ele for
+    # encerrado.
+    #
+    # "always" faz com que o Docker tente reiniciar
+    # automaticamente o container.
+    #restart: always
+
+    # Conecta o phpMyAdmin à rede Docker utilizada pela aplicação
+    # e pelo banco de dados.
+    #
+    # Dessa forma, o phpMyAdmin consegue acessar o MySQL
+    # utilizando o nome do serviço "mysql".
+    #networks:
+    #  - rede_cliente
+
+    # Mapeia uma porta do computador para a porta do phpMyAdmin
+    # dentro do container.
+    #
+    # Porta 88 do computador -> porta 80 do container.
+    #
+    # A porta 88 é a porta HTTP utilizada pelo phpMyAdmin.
+    #
+    # Depois de iniciar os containers, o phpMyAdmin poderá
+    # ser acessado através de:
+    # http://localhost:88
+    #ports:
+    #  - "88:80"
+
+    # Define as variáveis de ambiente utilizadas para configurar
+    # o phpMyAdmin.
+    #environment:
+
+      # Define o servidor MySQL ao qual o phpMyAdmin deverá
+      # se conectar.
+      #
+      # "mysql" corresponde ao nome do serviço MySQL definido
+      # no docker-compose.yml.
+      #
+      # Como os dois containers estão na mesma rede Docker,
+      # o phpMyAdmin consegue localizar o MySQL pelo nome
+      # "mysql".
+      #PMA_HOST: mysql
+
+      # Define a senha do usuário root do MySQL.
+      #
+      # Essa senha deve ser igual à senha definida no serviço
+      # MySQL através da variável MYSQL_ROOT_PASSWORD.
+      #MYSQL_ROOT_PASSWORD: root
+    
 # ==============================================================
 # VOLUMES
 # ==============================================================
@@ -64,3 +140,20 @@ volumes:
   # Os dados armazenados nesse volume permanecem disponíveis
   # mesmo que o container MySQL seja removido.
   mysql_data:
+      
+# ==============================================================
+# REDES
+# ==============================================================
+
+# Declara as redes utilizadas pelos serviços.
+networks:
+
+  # Nome da rede Docker que será utilizada pela aplicação,
+  # pelo phpMyAdmin e pelo banco de dados.
+  rede_cliente:
+
+    # Define o tipo de driver utilizado pela rede.
+    #
+    # O driver "bridge" cria uma rede virtual que permite
+    # a comunicação entre os containers conectados a ela.
+    driver: bridge
